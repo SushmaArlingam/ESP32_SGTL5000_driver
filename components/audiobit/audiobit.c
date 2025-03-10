@@ -27,15 +27,18 @@ software.
 #include "soc/rtc.h"
 #include "soc/soc.h"
 
+// structure that holds the I2S (Inter-IC Sound) configuration parameters for ESP32. It is used to configure the I2S peripheral before initialization.
+//i2s_config_t (TYPEDEF NAME)is a structure (struct) defined in ESP-IDF.
+//It is used to configure the I2S peripheral.
 static i2s_config_t audiobit_i2s_config = {
-    .mode = I2S_MODE_MASTER | I2S_MODE_TX,                                  // Only TX
+    .mode = I2S_MODE_MASTER | I2S_MODE_TX,                                  // I2S MASTER //Only TX
     .sample_rate = AUDIOBIT_SAMPLERATE,                                     // Default: 48kHz
     .bits_per_sample = AUDIOBIT_BITSPERSAMPLE,                              //16-bit per channel
     .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,                           //2-channels
-    .communication_format = I2S_COMM_FORMAT_I2S | I2S_COMM_FORMAT_I2S_MSB,
-    .dma_buf_count = 6,
-    .dma_buf_len = 512,                                                      //
-    .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1                                //Interrupt level 1
+    .communication_format = I2S_COMM_FORMAT_I2S | I2S_COMM_FORMAT_I2S_MSB, //Standard I2S, MSB first
+    .dma_buf_count = 6,                                                      //NO OF BUFF IN DMA
+    .dma_buf_len = 512,                                                      //BUFF LEN
+    .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1                                //Interrupt level 1//INTERRUPT PRIORITY
 };
 
 static i2s_pin_config_t audiobit_pin_config = {
